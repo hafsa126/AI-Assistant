@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant | Your Workspace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- LEFT NAVIGATION SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">✳</div>
+                <span>AI Assistant</span>
+            </div>
+
+            <nav class="navigation">
+
+                <div class="nav-section">
+                    <p class="nav-heading">MAIN</p>
+
+                    <button class="nav-item active" data-page="dashboard">
+                        <span class="nav-icon">⌂</span>
+                        <span>Dashboard</span>
+                    </button>
+                </div>
+
+                <div class="nav-section">
+                    <p class="nav-heading">WORKSPACE</p>
+
+                    <button class="nav-item" data-page="projects">
+                        <span class="nav-icon">▣</span>
+                        <span>My Projects</span>
+                    </button>
+
+                    <button class="nav-item" data-page="saved">
+                        <span class="nav-icon">☆</span>
+                        <span>Saved Items</span>
+                    </button>
+
+                    <button class="nav-item" data-page="activity">
+                        <span class="nav-icon">◷</span>
+                        <span>Recent Activity</span>
+                    </button>
+
+                    <button class="nav-item" data-page="history">
+                        <span class="nav-icon">↶</span>
+                        <span>History</span>
+                    </button>
+                </div>
+
+                <div class="nav-section">
+                    <p class="nav-heading">TOOLS</p>
+
+                    <button class="nav-item" data-page="project-builder">
+                        <span class="nav-icon">✧</span>
+                        <span>Project Builder</span>
+                    </button>
+
+                    <button class="nav-item" data-page="service-finder">
+                        <span class="nav-icon">⌕</span>
+                        <span>Service Finder</span>
+                    </button>
+
+                    <button class="nav-item" data-page="comparison">
+                        <span class="nav-icon">⇄</span>
+                        <span>Product Comparison</span>
+                    </button>
+
+                    <button class="nav-item" data-page="career-tracker">
+                        <span class="nav-icon">▤</span>
+                        <span>Career Tracker</span>
+                    </button>
+
+                    <button class="nav-item" data-page="ai-chat">
+                        <span class="nav-icon">◉</span>
+                        <span>AI Chat</span>
+                    </button>
+                </div>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button class="nav-item" data-page="settings">
+                    <span class="nav-icon">⚙</span>
+                    <span>Settings</span>
+                </button>
+
+                <div class="user-profile">
+                    <div class="avatar">U</div>
+                    <div class="user-details">
+                        <strong>My Account</strong>
+                        <small>Personal workspace</small>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+                <button class="menu-button" id="menuButton"
+                        aria-label="Open navigation">
+                    ☰
+                </button>
+
+                <div class="topbar-right">
+                    <button class="icon-button" aria-label="Notifications">
+                        ♧
+                    </button>
+                    <div class="top-avatar">U</div>
+                </div>
+            </header>
+
+
+            <!-- DASHBOARD WELCOME AREA -->
+            <section class="welcome-section" id="welcomeSection">
+
+                <div class="welcome-content">
+                    <div class="welcome-symbol">✳</div>
+
+                    <p class="welcome-label">YOUR PERSONAL AI WORKSPACE</p>
+
+                    <h1>Welcome to <span>AI Assistant.</span></h1>
+
+                    <h2>Your ideas deserve the right tools.</h2>
+
+                    <p class="welcome-description">
+                        Think, create, compare and plan.
+                        What would you like to work on today?
+                    </p>
+                </div>
+
+            </section>
+<section class="tool-page" id="projectBuilderPage" hidden>
+    <div class="page-heading">
+        <span class="eyebrow">AI WORKSPACE</span>
+        <h1>Project Builder</h1>
+        <p>Turn your idea into a structured project plan.</p>
+    </div>
+
+    <div class="builder-card">
+        <label for="projectIdea">What do you want to build?</label>
+
+        <textarea
+            id="projectIdea"
+            placeholder="Example: I want to build an expense tracker for students..."
+            rows="5"
+        ></textarea>
+
+        <label for="projectType">Project type</label>
+        <select id="projectType">
+            <option value="Web Application">Web Application</option>
+            <option value="Mobile Application">Mobile Application</option>
+            <option value="AI / Machine Learning">AI / Machine Learning</option>
+            <option value="Business Tool">Business Tool</option>
+        </select>
+
+        <button id="generateProject" class="primary-button">
+            Generate Project Plan
+        </button>
+
+        <div id="projectResult" class="project-result" hidden></div>
+    </div>
+</section>
+<section class="tool-page" id="savedPage" hidden>
+
+    <div class="page-heading">
+        <span class="eyebrow">YOUR WORKSPACE</span>
+        <h1>Saved Projects</h1>
+        <p>Access your previously generated project plans.</p>
+    </div>
+
+    <div id="savedProjectsList">
+        <p>Loading saved projects...</p>
+    </div>
+
+</section>
+<!-- Career Tracker -->
+<section class="tool-page" id="careerTrackerPage" hidden>
+
+    <div class="page-heading">
+        <span class="eyebrow">CAREER WORKSPACE</span>
+        <h1>Career Tracker</h1>
+        <p>Organize job opportunities and track your applications.</p>
+    </div>
+
+    <div class="builder-card">
+        <h2>Add an Opportunity</h2>
+
+        <label for="jobTitle">Job Title</label>
+        <input id="jobTitle" type="text" placeholder="Python Developer Intern">
+
+        <label for="companyName">Company</label>
+        <input id="companyName" type="text" placeholder="Company name">
+
+        <label for="jobStatus">Application Status</label>
+        <select id="jobStatus">
+            <option value="Saved">Saved</option>
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Selected">Selected</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+
+        <button id="addJobButton" class="primary-button">
+            Add Opportunity
+        </button>
+    </div>
+
+    <div class="builder-card" style="margin-top: 24px;">
+        <h2>My Applications</h2>
+        <div id="jobList">Loading applications...</div>
+    </div>
+
+</section>
+<!-- SERVICE FINDER -->
+<section class="tool-page" id="serviceFinderPage" hidden>
+
+    <div class="page-heading">
+        <span class="eyebrow">BUSINESS WORKSPACE</span>
+        <h1>Smart Service Finder</h1>
+        <p>Find suitable technology solutions for your business needs.</p>
+    </div>
+
+    <div class="builder-card">
+        <h2>Find Your Solution</h2>
+
+        <label for="businessProblem">What do you need help with?</label>
+        <select id="businessProblem">
+            <option value="">Select a business need</option>
+            <option value="website">Building a website</option>
+            <option value="automation">Automating repetitive tasks</option>
+            <option value="data">Managing and analyzing data</option>
+            <option value="mobile">Building a mobile application</option>
+            <option value="cloud">Cloud storage and infrastructure</option>
+        </select>
+
+        <label for="businessBudget">What is your budget?</label>
+        <select id="businessBudget">
+            <option value="">Select your budget</option>
+            <option value="low">Below ₹10,000</option>
+            <option value="medium">₹10,000–₹50,000</option>
+            <option value="high">Above ₹50,000</option>
+        </select>
+
+        <button id="findServiceButton" class="primary-button">
+            Find Suitable Services
+        </button>
+    </div>
+
+    <div class="builder-card" id="serviceResult" style="margin-top: 24px;" hidden>
+    </div>
+
+</section>
+            <!-- CHAT INPUT AT THE BOTTOM -->
+            <section class="chat-section">
+
+                <form class="chat-box" id="chatForm">
+
+                    <textarea
+                        id="chatInput"
+                        placeholder="Ask anything or describe what you want to build..."
+                        rows="1"
+                        aria-label="Your message"
+                    ></textarea>
+
+                    <div class="chat-controls">
+
+                        <div class="attachment-area">
+                            <input
+                                type="file"
+                                id="fileInput"
+                                accept=".pdf,.png,.jpg,.jpeg"
+                                hidden
+                            >
+
+                            <button
+                                type="button"
+                                class="attach-button"
+                                id="attachButton"
+                                aria-label="Attach a file"
+                            >
+                                +
+                            </button>
+
+                            <span id="fileName">Attach a file</span>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="send-button"
+                            aria-label="Send message"
+                        >
+                            ↑
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <p class="chat-disclaimer">
+                    AI can make mistakes. Verify important information.
+                </p>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- WELCOME POPUP -->
+    <div class="modal-overlay" id="welcomeModal">
+
+        <div class="welcome-modal">
+
+            <button class="modal-close" id="closeModal"
+                    aria-label="Close welcome popup">
+                ×
+            </button>
+
+            <div class="modal-symbol">✳</div>
+
+            <p class="welcome-label">WELCOME ABOARD</p>
+
+            <h2>Welcome to AI Assistant</h2>
+
+            <p>
+                Your ideas deserve the right tools.
+                Let's turn them into action.
+            </p>
+
+            <button class="get-started-button" id="getStarted">
+                Get Started →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
