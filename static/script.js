@@ -56,28 +56,70 @@ const pages = {
     "project-builder": document.getElementById("projectBuilderPage"),
     saved: document.getElementById("savedPage"),
     "career-tracker": document.getElementById("careerTrackerPage"),
-    "service-finder": document.getElementById("serviceFinderPage")
+    "service-finder": document.getElementById("serviceFinderPage"),
+    "ai-chat": document.getElementById("aiChatPage")
 };
+
+const chatSection = document.querySelector(".chat-section");
+
+function showPage(selectedPage) {
+    // Hide the welcome popup automatically
+    if (welcomeModal) {
+        welcomeModal.style.display = "none";
+    }
+
+    // Hide all available pages
+    Object.entries(pages).forEach(([name, page]) => {
+        if (page) {
+            page.hidden = name !== selectedPage;
+        }
+    });
+
+    // Hide chat when another module is opened
+    if (chatSection) {
+    chatSection.hidden = selectedPage !== "ai-chat";
+}
+
+    // Update active sidebar item
+    navItems.forEach((item) => {
+        item.classList.toggle(
+            "active",
+            item.dataset.page === selectedPage
+        );
+    });
+
+    // Load data when needed
+    if (selectedPage === "saved") {
+        loadSavedProjects();
+    }
+
+    if (selectedPage === "career-tracker") {
+        loadJobs();
+    }
+
+    // Return to top of workspace
+    const mainContent = document.querySelector(".main-content");
+
+if (mainContent) {
+    mainContent.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+window.scrollTo(0, 0);
+    // Close mobile sidebar
+    if (sidebar) {
+        sidebar.classList.remove("open");
+    }
+}
 
 navItems.forEach((item) => {
     item.addEventListener("click", () => {
         const selectedPage = item.dataset.page;
 
-        navItems.forEach((nav) => nav.classList.remove("active"));
-        item.classList.add("active");
-
-        Object.entries(pages).forEach(([name, page]) => {
-            if (page) {
-                page.hidden = name !== selectedPage;
-            }
-        });
-
-        if (selectedPage === "saved") {
-            loadSavedProjects();
-        }
-
-        if (selectedPage === "career-tracker") {
-            loadJobs();
+        if (pages[selectedPage]) {
+            showPage(selectedPage);
         }
     });
 });

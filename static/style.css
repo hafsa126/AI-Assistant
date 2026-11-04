@@ -628,3 +628,24 @@ button {
 .saved-project-card small {
     color: #89958e;
 }
+/* Back to Dashboard Button */
+.back-dashboard {
+    background: transparent;
+    color: #0f766e;
+    border: 1px solid #0f766e;
+    padding: 9px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 20px;
+    transition: 0.2s ease;
+}
+
+.back-dashboard:hover {
+    background: #0f766e;
+    color: white;
+}
+/* Ensure hidden pages stay hidden */
+[hidden] {
+    display: none !important;
+}
